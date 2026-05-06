@@ -5,7 +5,9 @@ import mongoose from "mongoose";
 import todoRoutes from "./routes/todo.js";
 
 dotenv.config();
-
+dotenv.config({
+  override: false, // Docker env vars take priority
+});
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,8 +19,16 @@ app.use(express.json());
 app.use("/api/todos", todoRoutes);
 
 // Connect to MongoDB
+const mongoURI = process.env.MONGO_URI;
+
+console.log("Using Mongo URI:", mongoURI);
+
+if (!mongoURI) {
+  console.error("❌ MONGO_URI is not defined");
+  process.exit(1);
+}
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(mongoURI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
