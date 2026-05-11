@@ -1,4 +1,5 @@
 import express from "express";
+import * as crypto from "node:crypto";
 import Todo from "../models/Todo.js";
 
 const router = express.Router();
@@ -9,7 +10,7 @@ router.get("/", async (req, res) => {
     const todos = await Todo.find().sort({ createdAt: -1 });
     res.json(todos);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message, stack: error.stack });
   }
 });
 
