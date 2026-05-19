@@ -21,6 +21,10 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+//Add health route
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "OK" });
+});
 app.use("/api/todos", todoRoutes);
 
 // Connect to MongoDB
