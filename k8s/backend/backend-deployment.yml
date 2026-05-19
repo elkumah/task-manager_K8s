@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: efkumah/task-mngnt-backend:v1.0
+        image: efkumah/task-mngnt-backend:v1.1
 
         ports:
         - containerPort: 5000
